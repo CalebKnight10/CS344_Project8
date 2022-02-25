@@ -96,6 +96,7 @@ void myfree(void *p)
 	struct block *b = PTR_OFFSET(p, -PADDED_SIZE(sizeof(struct block)));
 	b->in_use = 0;
 	struct block *curr = head;
+	
 	while (curr->next != NULL) { // loop until end of list
 		if(curr->in_use == 0 && curr->next->in_use == 0) { // if the current and the next are NOT in use
 			curr->size += curr->next->size + PADDED_SIZE(sizeof(struct block));
