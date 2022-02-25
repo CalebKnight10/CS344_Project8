@@ -43,6 +43,23 @@ void split_space(struct block *n, int bytes)
 	n -> next = new_node; // make the next node new
 }
 
+// Need to implement this, was getting implicit error
+// void find_space(int bytes) 
+// {
+
+// 	struct block *n = head;
+// 	bytes = bytes + GET_PAD(bytes);
+// 	while(n != NULL){
+// 		if(n -> size >= bytes && n -> in_use == 0){
+// 			split_space(n, bytes);
+// 			n -> in_use = 1;
+// 			return PTR_OFFSET(n, PADDED_SIZE(sizeof(struct block)));
+// 		}
+// 		n = n -> next;
+// 	}
+// 	return NULL;
+// }
+
 void *myalloc(int bytes)
 {
 	void *h = sbrk(1024);
@@ -58,7 +75,7 @@ void *myalloc(int bytes)
 	struct block *n = head;
 	int required_space = PADDED_SIZE(bytes) + PADDED_SIZE(sizeof(struct block)) + 16;
 
-		//find_space(size);
+	// find_space(bytes);
 	while(n != NULL) {
 		if(n -> size >= bytes && n -> in_use == 0){
 			if (n -> size >= required_space){
@@ -73,21 +90,6 @@ void *myalloc(int bytes)
 	return NULL;
 }
 
-
-// Need to implement this, was getting implicit error
-// void find_space(int bytes) 
-// {
-// 	bytes = bytes + GET_PAD(bytes);
-// 	while(n != NULL){
-// 		if(n -> size >= bytes && n -> in_use == 0){
-// 			split_space(n, bytes);
-// 			n -> in_use = 1;
-// 			return PTR_OFFSET(n, PADDED_SIZE(sizeof(struct block)));
-// 		}
-// 		n = n -> next;
-// 	}
-// 	return NULL;
-// }
 
 void myfree(void *p) 
 {
@@ -139,15 +141,15 @@ int main(void)
 
 	void *p, *q, *r, *s;
 
-p = myalloc(10); print_data();
-q = myalloc(20); print_data();
-r = myalloc(30); print_data();
-s = myalloc(40); print_data();
+	p = myalloc(10); print_data();
+	q = myalloc(20); print_data();
+	r = myalloc(30); print_data();
+	s = myalloc(40); print_data();
 
-myfree(q); print_data();
-myfree(p); print_data();
-myfree(s); print_data();
-myfree(r); print_data();
+	myfree(q); print_data();
+	myfree(p); print_data();
+	myfree(s); print_data();
+	myfree(r); print_data();
 
 
 // void *p, *q;
